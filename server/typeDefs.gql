@@ -1,0 +1,53 @@
+type Query {
+  getUser: User
+  getCurrentUser: User
+  getUserTodos(userId: ID!, sortType: String, sortBy: String, pageId: Int): [Todo]
+  getTotalTodos(userId: ID!): TotalTodos!
+}
+
+type Mutation {
+  signupUser(username: String!, email: String!, password: String!): Token
+  signinUser(username: String!, password: String!): Token
+  addTodo(
+    title: String!,
+    description: String!,
+    dueDate: String!,
+    status: String!,
+    createdBy: ID!
+  ): Todo!
+  deleteTodo(todoId: ID!): Todo
+  updateTodo(
+    todoId: ID!,
+    title: String,
+    description: String,
+    dueDate: String,
+    status: String
+  ): Todo!
+}
+
+type Token {
+  token: String!
+}
+
+type TotalTodos {
+  total: Int!
+}
+
+type User {
+  _id: ID
+  username: String!
+  email: String!
+  password: String!
+  avatar: String
+  joinDate: String
+}
+
+type Todo {
+  _id: ID
+  title: String!
+  description: String!
+  dueDate: String!
+  status: String!
+  createdDate: String
+  createdBy: User!
+}
